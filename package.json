@@ -1,0 +1,49 @@
+{
+  "name": "vk-apps-meetings",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "vk-miniapps-deploy",
+    "start": "cross-env PORT=8080 react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "cross-env": "^5.2.0",
+    "decliner": "^1.1.1",
+    "ngrok": "^3.2.5",
+    "react-hot-loader": "^4.9.0",
+    "react-native-app-intro": "^1.1.5",
+    "react-scripts": "^2.1.8"
+  },
+  "dependencies": {
+    "@vkontakte/icons": "^1.8.2",
+    "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
+    "@vkontakte/vk-connect": "^1.5.5",
+    "@vkontakte/vk-miniapps-deploy": "0.0.10",
+    "@vkontakte/vkui": "^2.34.1",
+    "axios": "^0.19.0",
+    "babel-eslint": "^9.0.0",
+    "chalk": "^2.4.2",
+    "core-js": "^3.1.4",
+    "gh-pages": "^2.1.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-native": "^0.61.5",
+    "react-native-app-intro-slider": "^3.0.0",
+    "react-slick": "^0.25.2",
+    "vk-stories": "^1.1.0"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

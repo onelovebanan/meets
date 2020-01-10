@@ -1,0 +1,31 @@
+.Meeting {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+}
+
+.Meeting_info {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.Meeting_name {
+    font-size: 24px;
+    text-align: center;
+}
+.title {
+  font-weight: bold;
+  padding: 5vh 0 2vh 0;
+  font-size: 25px;
+  line-height: 1.2;
+  color: rgb(0, 0, 0);
+}
+
+.subtitle {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 1.2;
+  color: rgb(0, 0, 0);
+}

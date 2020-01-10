@@ -1,0 +1,272 @@
+:global(.transparentBody) {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
+:global(.transparentBody::before) {
+    display: none;
+}
+:global(.transparentBody::after) {
+    display: none;
+}
+:global(.Group--ios.transparentBody:after) {
+    height: 0;
+}
+
+* {
+    --button_primary_background: #0080b4;
+    --header_background: #0080b4;
+    --header_alternate_background: #0080b4;
+    --tabbar_active_icon: #ffffff;
+    --tabbar_inactive_icon: #80bfd9;
+}
+#like {
+  color: rgb(255, 0, 0);
+}
+#no_part {
+    --button_secondary_background: rgb(255, 255, 255);
+    --button_secondary_foreground: rgb(0, 0, 0);
+      border-radius: 30px;
+      user-select: none!important;
+}
+#desk {
+     color: #7f7f7f;
+     user-select: text;
+}
+#comm {
+    padding: 0 0 5px 0;
+    font-size: 12px;
+    color: #7f7f7f;
+}
+.commentItem {
+  border-radius: 20px;
+}
+.commentItem::before, .commentItem::after {
+  display: none;
+}
+.bold {
+    color: black;
+    font-weight: 550;
+ }
+.bold_White {
+     color: white;
+     font-weight: 550;
+  }
+#part {
+      border-radius: 30px;
+}
+input, textarea, select {
+    user-select: auto!important;
+}
+#link {
+    --accent: #fff!important;
+}
+.Meeting {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+}
+
+.Meeting_info {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.Meeting_name {
+    font-size: 24px;
+    text-align: center;
+}
+.title {
+  font-weight: bold;
+  padding: 5vh 0 2vh 0;
+  font-size: 25px;
+  line-height: 1.2;
+  color: rgb(0, 0, 0);
+}
+
+.subtitle {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 1.2;
+  color: rgb(0, 0, 0);
+}
+
+.onSelected {
+    user-select: auto!important;
+}
+
+[role="button"]:not([disabled]),
+.Quote_Action svg,
+.TabbarItem {
+    cursor: pointer;
+}
+
+.MeetList {
+    padding: 0 12px;
+}
+
+.MeetBox {
+    background: 'linear-gradient(135deg, #f24973 0%, #3948e6 100%)';
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    position: relative;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    color: var(--white);
+}
+.MeetImg {
+    background: 'linear-gradient(135deg, #f24973 0%, #3948e6 100%)';
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    position: relative;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    color: var(--white);
+}
+.MeetImg::after {
+    filter: blur(30px);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.63) 50%, rgba(255, 255, 255, 0.5) 100%);
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    opacity: .5;
+    z-index: 1;
+}
+.MeetBox::after {
+    filter: blur(30px);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.63) 50%, rgba(255, 255, 255, 0.5) 100%);
+
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    opacity: .5;
+    z-index: 1;
+}
+.MeetBox .MeetName {
+    padding: 0;
+    font-size: 1.5em;
+    z-index: 2;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+}
+.MeetImg .MeetName {
+    padding: 0;
+    font-size: 1.5em;
+    z-index: 2;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+    word-break: break-all;
+    margin: 0 auto;
+}
+.MeetBox .MeetMore {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 2;
+}
+.MeetBox .MeetAction {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    z-index: 2;
+}
+.MeetBox .MeetAction .MeetMembers {
+    flex: 1;
+}
+.onboarding {
+  height: 84vh;
+  padding-top: 1vh;
+  width: 100%;
+  display: flex !important;
+  outline: none !important;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  white-space: pre-line
+}
+
+.image {
+  width: 30vh;
+  /*height: 100%;*/
+}
+
+.avatar {
+  min-width: 400;
+}
+#Avatar {
+  min-width: 400;
+}
+
+.title {
+  font-family: "TT Norms";
+  font-weight: bold;
+  padding: 5vh 0 2vh 0;
+  font-size: 25px;
+  line-height: 1.2;
+  color: rgb(0, 0, 0);
+}
+
+.subtitle {
+  font-family: "TT Norms";
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 1.2;
+  color: rgb(0, 0, 0);
+}
+
+
+.NewMeetBox {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    color: var(--white);
+}
+
+.NewMeetBox .Placeholder {
+    background: transparent;
+}
+
+.NewMeetBox .Placeholder .Placeholder__title {
+    color: var(--white);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .9);
+}
+
+.NewMeetBox .Placeholder .Placeholder__icon {
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
+}
