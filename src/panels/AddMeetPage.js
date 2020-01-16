@@ -3,6 +3,10 @@ import { Panel, PanelHeader, FormLayout, UsersStack, Textarea, Input, Link,
   Spinner, Div, Group, Separator, File, Checkbox, Button } from '@vkontakte/vkui';
 
 import connect from '@vkontakte/vk-connect';
+
+import Cropper from 'react-cropper';
+import 'cropperjs/dist/cropper.css';
+
 // import Icon24Users from '@vkontakte/icons/dist/24/users';
 // import Icon24ShareOutline from '@vkontakte/icons/dist/24/share_outline';
 // import Icon24BrowserBack from '@vkontakte/icons/dist/24/browser_back';
@@ -188,9 +192,38 @@ class AddMeetPage extends Component {
         const formLang = getMessage('forms');
 
         const backgroundImage = `url(${photo || 'https://sun9-17.userapi.com/c856016/v856016841/191507/A_xwv3xLXfg.jpg'})`;
+        const cropper = React.createRef(null);
+
+        function dataURLtoFile(dataurl, filename) {
+
+          var arr = dataurl.split(','),
+              mime = arr[0].match(/:(.*?);/)[1],
+              bstr = atob(arr[1]),
+              n = bstr.length,
+              u8arr = new Uint8Array(n);
+
+          while(n--){
+              u8arr[n] = bstr.charCodeAt(n);
+          }
+
+          return new File([u8arr], filename, {type:mime});
+      }
+
+      //Usage example:
+      var file = dataURLtoFile('data:text/plain;base64,aGVsbG8gd29ybGQ=','hello.txt');
+      console.log(file);
 
         return (
             <Panel id={id}>
+          {/*  <Cropper
+                ref={cropper}
+                src='https://sun9-17.userapi.com/c856016/v856016841/191507/A_xwv3xLXfg.jpg'
+                style={{height: 400, width: '100%'}}
+                aspectRatio={16 / 9}
+                guides={true}
+                crop={(e)=>console.log(e.target.cropper.getCroppedCanvas().toDataURL())}
+              />
+              */}
                 <PanelHeader>{ getMessage('add_meet_page') }</PanelHeader>
                 <Group title='Предпросмотр'/>
                 <Div onClick={() => connect.send("VKWebAppShowImages", { images: [ photo ] })} className="MeetImg" style={{ backgroundImage }} >
