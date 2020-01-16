@@ -255,11 +255,11 @@ class App extends React.Component {
 		const { offline, popout, activeStory, meets, userMeets, allMeets,
 			 activePanel, fetchedUser, comments } = this.state;
 
-		const isUserAdmin = ( this.state.fetchedUser.id === 35501089 ||
-			this.state.fetchedUser.id === 236820864 || this.state.fetchedUser.id === 87478742
-			 || this.state.fetchedUser.id === 257140604 ||
-			 this.state.fetchedUser.id === 512502902 || this.state.fetchedUser.id === 86404556
-			 || this.state.fetchedUser.id === 304358149 || this.state.fetchedUser.id === 186081281 );
+		const isUserAdmin = (
+			this.state.fetchedUser.id === 35501089  ||
+			this.state.fetchedUser.id === 236820864 ||
+			this.state.fetchedUser.id === 87478742
+		 );
 
 		const props = { getOwneredMeets, getExpiredUserMeets, openDoneSnackbar,
 			 openErrorSnackbar,	api, isUserAdmin, getUserMeets, state, activeStory,
