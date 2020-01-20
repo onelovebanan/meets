@@ -4,8 +4,8 @@ import { Panel, PanelHeader, FormLayout, UsersStack, Textarea, Input, Link,
 
 import connect from '@vkontakte/vk-connect';
 
-import Cropper from 'react-cropper';
-import 'cropperjs/dist/cropper.css';
+//import Cropper from 'react-cropper';
+//import 'cropperjs/dist/cropper.css';
 
 // import Icon24Users from '@vkontakte/icons/dist/24/users';
 // import Icon24ShareOutline from '@vkontakte/icons/dist/24/share_outline';
@@ -192,9 +192,9 @@ class AddMeetPage extends Component {
         const formLang = getMessage('forms');
 
         const backgroundImage = `url(${photo || 'https://sun9-17.userapi.com/c856016/v856016841/191507/A_xwv3xLXfg.jpg'})`;
-        const cropper = React.createRef(null);
+    //    const cropper = React.createRef(null);
 
-        function dataURLtoFile(dataurl, filename) {
+      /*  function dataURLtoFile(dataurl, filename) {
 
           var arr = dataurl.split(','),
               mime = arr[0].match(/:(.*?);/)[1],
@@ -211,7 +211,7 @@ class AddMeetPage extends Component {
 
       //Usage example:
       var file = dataURLtoFile('data:text/plain;base64,aGVsbG8gd29ybGQ=','hello.txt');
-      console.log(file);
+      console.log(file);*/
 
         return (
             <Panel id={id}>

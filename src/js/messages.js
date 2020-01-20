@@ -20,7 +20,7 @@ export const messages = {
     forms: {
         start: "Дата начала",
         finish: "Дата окончания",
-        photo: "Обложка петиции",
+        photo: "Обложка петиции (до 1,13 МБ)",
         add: "Добавить",
         save: "Сохранить",
         submit: "Отправить"

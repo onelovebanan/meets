@@ -112,7 +112,7 @@ class Meet extends Component {
           });
           }
         const share = e => {
-          connect.send("VKWebAppShowWallPostBox", {"message": `${meet.name}\n\n${meet.description}\n\n Примите участие по ссылке: https://vk.com/app7217332#${meet.id}`});
+          connect.send("VKWebAppShowWallPostBox", {"message": `${meet.name}\n\n${meet.description}\n\n Примите участие в петиции по ссылке: https://vk.com/app7217332#${meet.id}`});
         }
         return (
             <Panel id={id}>
