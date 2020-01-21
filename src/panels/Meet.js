@@ -137,7 +137,7 @@ class Meet extends Component {
                     <Div id='desk'>{meet.description}</Div>
 
                   {
-                    ( !meet.isexpired && meet.approved === 1 ) &&
+                    ( !meet.isexpired && meet.approved ) &&
                     <>
                     <Div style={{ display: 'flex' }}>
                         {
@@ -173,7 +173,7 @@ class Meet extends Component {
                     </>
                   }
                 </Group>
-              { !meet.isexpired && meet.approved === 1 &&  <ComList {...this.props}/>}
+              { !meet.isexpired && meet.approved &&  <ComList {...this.props}/>}
                   {this.props.state.snackbar}
             </Panel>
         );

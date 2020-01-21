@@ -55,12 +55,12 @@ class MeetBoxAdmin extends Component {
                 <Div className="MeetName">{ meet.name }</Div>
                 <Div className="MeetAction">
                   {
-                    meet.approved === 1 ?
+                    meet.approved ?
                     <Button level="primary">Одобрен</Button>
                     :   <Button level="primary">Не рассмотрен</Button>
                   }
                     <Div className="MeetMembers">{ meetMembers }</Div>
-                    <Link id='link' onClick={e => e.stopPropagation()} target="_blank" href="https://vk.me/join/AJQ1d2apLRT8GMtyuXFrAkqD"><Icon28Messages/></Link>
+                {/*    <Link id='link' onClick={e => e.stopPropagation()} target="_blank" href="https://vk.me/join/AJQ1d2apLRT8GMtyuXFrAkqD"><Icon28Messages/></Link>*/}
                 </Div>
             </Div>
         )

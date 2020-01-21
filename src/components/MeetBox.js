@@ -82,8 +82,8 @@ class MeetBox extends Component {
                 <Div className="MeetAction">
                     {
                       !meet.ismember ?
-                      <Button id='no_part' disabled={ meet.approved === 0 || meet.isexpired } level="secondary"> <span className="bold">Участвовать</span> </Button>
-                      : <Button id='part' disabled={ meet.approved === 0 || meet.isexpired } level="commerce"><span className="bold_White">Участвую!</span> </Button>
+                      <Button id='no_part' disabled={ !meet.approved || meet.isexpired } level="secondary"> <span className="bold">Участвовать</span> </Button>
+                      : <Button id='part' disabled={ !meet.approved || meet.isexpired } level="commerce"><span className="bold_White">Участвую!</span> </Button>
                     }
                     <Div className="MeetMembers">{ meetMembers }</Div>
                     {

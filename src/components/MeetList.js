@@ -13,14 +13,6 @@ class MeetList extends Component {
         if(meets === false){
           return null
         }
-        //   if(window.location.hash.replace('#', '') > 0) this.onStoryChange('home', 'meet')
-        /*
-        const hash = window.location.hash.replace('#', '')
-        console.log(hash, this.props.meet.id)
-        if( hash > 0 && hash === this.props.meet.id) {
-          this.goMeet()
-        }
-        */
 
         return (
             <>
