@@ -17,15 +17,22 @@ import Icon16Clear from '@vkontakte/icons/dist/16/clear';
 
 import Home from './panels/Home';
 import Favorite from './panels/Favorite';
+
 import Meet from './panels/Meet';
 import MeetAdmin from './panels/MeetAdmin';
+
 import AdminPage from './panels/AdminPage';
 import AddMeetPage from './panels/AddMeetPage';
+
 import Offline from './panels/Offline';
+
 import Onboarding from './panels/Onboarding';
 import Onboarding2 from './panels/Onboarding2';
 import Onboarding3 from './panels/Onboarding3';
-import Rules from './panels/Rules';
+
+import AddGroupSuccess from './panels/AddGroupSuccess';
+
+import CommIntegration from './panels/CommIntegration';
 
 class App extends React.Component {
 	constructor(props) {
@@ -109,6 +116,10 @@ class App extends React.Component {
 					this.setState({ noty: e.detail.data.result });
 					console.log(this.state)
 				break;
+				case 'VKWebAppAddToCommunityResult':
+				console.log(e.detail.data.group_id);
+				this.onStoryChange('home', 'succ');
+				break;
 				case 'VKWebAppAccessTokenReceived':
 				if(e.detail.data.scope === '') 	this.openErrorSnackbar('Действие отменено пользователем.')
 				break;
@@ -120,7 +131,7 @@ class App extends React.Component {
 		}
 	}
 	// TODO: Нужен history для навигации назад с других экранов и системной кнопки назад на ведре
-	onStoryChange = (story, panel) => { //  vkConnect.send('VKWebAppEnableSwipeBack');
+	onStoryChange = (story, panel) => {
 	//	connect.unsubscribe(this.sub);
 		let userId = this.state.fetchedUser.id
 		this.setState({
@@ -142,7 +153,7 @@ class App extends React.Component {
 			}
 		}
 		if(story === 'admin') this.getAllMeets(this.state.fetchedUser.id);
-		if(panel !== 'meet') connect.send('VKWebAppDisableSwipeBack');
+		if(panel !== 'meet' || panel !== 'succ' || panel !== 'comm') connect.send('VKWebAppDisableSwipeBack');
 	}
 
 	checkRoute = async e => {
@@ -267,7 +278,11 @@ class App extends React.Component {
 			allMeets, onStoryChange, fetchedUser,
 			comments, setParentState: this.setState.bind(this) };
 
-		const history = activePanel === 'meet' ? ['meets', 'meet'] : ['meets'];
+		//const history = activePanel === 'meet' ? ['meets', 'meet'] : ['meets'];
+		const history =
+			activePanel === 'meet' ||
+			activePanel === 'comm' ||
+			activePanel === 'succ' ? [activePanel, 'panel'] : [activePanel];
 
 		const onSwipeBack = e => {
 			this.setState({ activePanel: 'meets' });
@@ -284,7 +299,13 @@ class App extends React.Component {
 						</View>
 						:
 						<Epic activeStory={ activeStory } tabbar={
-							(activeStory !== 'onboarding' && activePanel !== 'meet') && <Tabbar>
+							(
+								activeStory !== 'onboarding' &&
+								activePanel !== 'meet' &&
+								activePanel !== 'comm' &&
+								activePanel !== 'succ'
+							)
+							&& <Tabbar>
 							<TabbarItem
 								onClick={ () => this.onStoryChange('home', 'meets') }
 								selected={ activeStory === 'home' }
@@ -305,7 +326,8 @@ class App extends React.Component {
 						}>
 							<View id="home"	{ ...views } >
 								<Home id="meets" { ...props } />
-								<Rules id="rules" { ...props } />
+								<CommIntegration id="comm" { ...props } />
+								<AddGroupSuccess id='succ' { ...props } />
 								<Meet id="meet" { ...props } />
 							</View>
 							<View id="addMeet" { ...views } >

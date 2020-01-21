@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Panel, PanelHeader, PullToRefresh } from '@vkontakte/vkui';
+import { Panel, PanelHeader, IS_PLATFORM_IOS, HeaderButton, PullToRefresh } from '@vkontakte/vkui';
 import { getMessage } from '../js/helpers';
 import MeetList from '../components/MeetList';
+
+import Icon24Users from '@vkontakte/icons/dist/24/users';
 
 import '@vkontakte/vkui/dist/vkui.css';
 import './Home.css';
@@ -26,11 +28,15 @@ class Home extends Component {
     }
 
     render() {
-        const { id, setParentState } = this.props;
+        const { id, setParentState, onStoryChange } = this.props;
 
         return (
             <Panel id={id}>
-                <PanelHeader>{ getMessage('home_panel_title') }</PanelHeader>
+                <PanelHeader left={
+                  <HeaderButton onClick={ () => onStoryChange('home', 'comm') }>
+			               <Icon24Users/>
+		               </HeaderButton>
+                 }>{ getMessage('home_panel_title') }</PanelHeader>
 
                 <PullToRefresh onRefresh={this.onRefresh} isFetching={this.state.fetching}>
                         <MeetList
