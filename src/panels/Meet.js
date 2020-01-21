@@ -39,7 +39,7 @@ class Meet extends Component {
         var meetMembers = shortNumber(meet.members_amount)
         const start_date = meet.start.split('-').reverse().join('-')
         const backgroundImage = `url(${meet.photo})`;
-        var link = 'https://vk.com/id' + meet.ownerid
+        var link = meet.ownerid > 0 ? `https://vk.com/id${meet.ownerid}` : `https://vk.com/club${-meet.ownerid}`
 
         const sub = e => {
           connect.unsubscribe(sub)

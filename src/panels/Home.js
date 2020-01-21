@@ -28,12 +28,14 @@ class Home extends Component {
     }
 
     render() {
-        const { id, setParentState, onStoryChange } = this.props;
+        const { id, setParentState } = this.props;
 
         return (
             <Panel id={id}>
                 <PanelHeader left={
-                  <HeaderButton onClick={ () => onStoryChange('home', 'comm') }>
+                  <HeaderButton onClick={ () => setParentState({
+                    activePanel: 'comm'
+                  }) }>
 			               <Icon24Users/>
 		               </HeaderButton>
                  }>{ getMessage('home_panel_title') }</PanelHeader>

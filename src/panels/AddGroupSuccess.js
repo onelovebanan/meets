@@ -27,7 +27,7 @@ class Success extends Component {
                     }
                   stretched
                 >
-             Сервис успешно добавлен в сообщетсво
+             Сервис успешно добавлен в сообщество, откройте сервис из него
              </Placeholder>
             </Panel>
         );

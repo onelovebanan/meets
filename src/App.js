@@ -65,7 +65,11 @@ class App extends React.Component {
 			comments: false,
 			currentMeetId: false,
 			userMeets: false,
-			allMeets: false
+			allMeets: false,
+			isCurrentGroupAdmin: false,
+			currentGroupInfo: false,
+			groupSelected: false,
+			changedRadio: false
 		};
 
 		this.initApp();
@@ -118,7 +122,9 @@ class App extends React.Component {
 				break;
 				case 'VKWebAppAddToCommunityResult':
 				console.log(e.detail.data.group_id);
-				this.onStoryChange('home', 'succ');
+				this.setState({
+					activePanel: 'succ'
+				});
 				break;
 				case 'VKWebAppAccessTokenReceived':
 				if(e.detail.data.scope === '') 	this.openErrorSnackbar('Действие отменено пользователем.')
@@ -254,6 +260,14 @@ class App extends React.Component {
 	}
 	addUser = async (user) => { // добавить данные юзера в базу
 			const isFirst = await this.api.IsFirst(user.id);
+			const clubInfo = await this.api.GetGroupInfo();
+			if(clubInfo.name) {
+				this.setState({
+					isCurrentGroupAdmin: true,
+					currentGroupInfo: clubInfo
+				});
+			console.log('isCurrentGroupAdmin true');
+		}
 			if(isFirst){ // показываем онбординг, если юзер зашёл первый раз
 				this.api.AddUser(user);
 				this.onStoryChange('onboarding', 'onboarding');
@@ -278,17 +292,40 @@ class App extends React.Component {
 			allMeets, onStoryChange, fetchedUser,
 			comments, setParentState: this.setState.bind(this) };
 
-		//const history = activePanel === 'meet' ? ['meets', 'meet'] : ['meets'];
-		const history =
+		//const history =  ? ['meets', 'meet'] : ['meets'];
+
+		const history = () => {
+			let response;
+			switch (activePanel) {
+				case 'meet': {
+					response = ['meets', 'meet'];
+				}	break;
+				case 'succ': {
+					 response = ['meets', 'succ'];
+				}	break;
+				case 'comm': {
+					response = ['meets', 'comm'];
+				}	break;
+				case 'meetAdmin': {
+					response = ['meets', 'meetAdmin'];
+				}	break;
+				default: {
+					response = ['meets'];
+				}
+			}
+			return response;
+		}
+		console.log(history())
+	/*	const history =
 			activePanel === 'meet' ||
-			activePanel === 'comm' ||
-			activePanel === 'succ' ? [activePanel, 'panel'] : [activePanel];
+			activePanel === 'comm' || ДОРАБОТАТЬ ПЕРЕРАБОТАТЬ В КОРНЕ
+			activePanel === 'succ' ? [activePanel, 'panel'] : [activePanel];*/
 
 		const onSwipeBack = e => {
 			this.setState({ activePanel: 'meets' });
 		}
 
-		const views = { onSwipeBack, history, popout, activePanel };
+		const views = { onSwipeBack, popout, activePanel };
 
 		return (
 			 <ConfigProvider>
@@ -324,7 +361,7 @@ class App extends React.Component {
 								><Icon24FavoriteOutline /></TabbarItem>
 							</Tabbar>
 						}>
-							<View id="home"	{ ...views } >
+							<View id="home"	history={history()} { ...views } >
 								<Home id="meets" { ...props } />
 								<CommIntegration id="comm" { ...props } />
 								<AddGroupSuccess id='succ' { ...props } />
@@ -333,11 +370,11 @@ class App extends React.Component {
 							<View id="addMeet" { ...views } >
 								<AddMeetPage id="addMeetPage" { ...props } />
 							</View>
-							<View id="admin" { ...views } >
+							<View id="admin" history={history()}  { ...views } >
 								<AdminPage id="meets" { ...props } />
 								<MeetAdmin id='meetAdmin' { ...props } />
 							</View>
-							<View	id="favorites" { ...views } >
+							<View	id="favorites" history={history()}  { ...views } >
 								<Favorite id="meets" { ...props } />
 								<Meet id="meet" { ...props }/>
 							</View>

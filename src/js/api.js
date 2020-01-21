@@ -41,6 +41,13 @@ export default class API {
 
         return response;
     }
+    async GetGroupInfo() {
+        let response = await this.send('GET',  `GetGroupInfo`, null);
+
+        dd('API: ', 'GetGroupInfo', response);
+
+        return response;
+    }
     async AddMeet(meet) {
         let response = await this.send('POST', 'AddMeet', meet);
 
@@ -54,7 +61,7 @@ export default class API {
     }
     async IsFirst(id) {
       console.log(id)
-        const response = await this.send('GET', `IsFirst?id=${id}`, null);
+        const response = await this.send('GET', `IsFirst?id=${id}`, null); // убрать id, но не факт
 
         dd('API: ', 'IsFirst', id, response);
 

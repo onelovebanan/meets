@@ -78,7 +78,7 @@ class MeetAdmin extends Component {
                     <Div id='desk'>{meet.description}</Div>
                     <Div style={{display: 'flex'}}>
                             {
-                              meet.approved === 0 ?
+                              !meet.approved ?
                               <Button size="l" disabled={this.state.disabled} stretched style={{ marginRight: 8 }}
                               onClick={ () => approve() }>{this.state.disabled ? <Spinner/> : 'Принять'}</Button>
                               : <Button size="l" disabled={this.state.disabled} stretched style={{ marginRight: 8 }}

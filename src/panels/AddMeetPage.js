@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import { Panel, PanelHeader, FormLayout, UsersStack, Textarea, Input, Link,
-  Spinner, Div, Group, Separator, File, Checkbox, Button } from '@vkontakte/vkui';
+  Spinner, Div, Group, Separator, Radio, File, Checkbox, Button } from '@vkontakte/vkui';
 
 import connect from '@vkontakte/vk-connect';
 
 //import Cropper from 'react-cropper';
 //import 'cropperjs/dist/cropper.css';
-
-// import Icon24Users from '@vkontakte/icons/dist/24/users';
-// import Icon24ShareOutline from '@vkontakte/icons/dist/24/share_outline';
-// import Icon24BrowserBack from '@vkontakte/icons/dist/24/browser_back';
-// import Icon24Done from '@vkontakte/icons/dist/24/done';
-// import Icon24Story from '@vkontakte/icons/dist/24/story';
-
-// import Icon20PlaceOutline from '@vkontakte/icons/dist/20/place_outline';
-// import Icon20CalendarOutline from '@vkontakte/icons/dist/20/calendar_outline';
 
 import '@vkontakte/vkui/dist/vkui.css';
 import './Home.css';
@@ -51,7 +42,7 @@ class AddMeetPage extends Component {
       const start = `${state.start_date} ${state.start_time}`;
       const finish = `${state.finish_date} ${state.finish_time}`;
       const { success, failed } = await api.AddMeet({
-          owner_id: fetchedUser.id,
+          isGroup: state.groupSelected,
           name: state.name,
           start: start,
           finish: finish,
@@ -186,7 +177,7 @@ class AddMeetPage extends Component {
   }
     render() {
         const onChange = this.onChange;
-        const { id, state, openErrorSnackbar } = this.props;
+        const { id, state, openErrorSnackbar, setParentState } = this.props;
         const { name, start, snackbar, start_date, finish_date,
           finish, description, symbols_name, symbols_description, photo, accept } = state;
         const formLang = getMessage('forms');
@@ -234,7 +225,10 @@ class AddMeetPage extends Component {
 
                  <Separator style={{ margin: '12px 0' }} />
 
-                     <UsersStack  photos={[ state.fetchedUser.photo_100 ]}>{state.fetchedUser.first_name} {state.fetchedUser.last_name} • участников нет</UsersStack>
+                     <UsersStack  photos={[ state.groupSelected ? state.currentGroupInfo.photo : state.fetchedUser.photo_100 ]}>
+                     { state.groupSelected ? state.currentGroupInfo.name
+                   : `${state.fetchedUser.first_name} ${state.fetchedUser.last_name}` } • участников нет
+                     </UsersStack>
 
 
                  <Separator style={{ margin: '12px 0' }} />
@@ -242,7 +236,34 @@ class AddMeetPage extends Component {
 
 
                </Group>
+               <Group title='Информация о петиции'>
                    <FormLayout>
+
+                    {
+                      state.isCurrentGroupAdmin && state.currentGroupInfo &&
+
+                      <Group title='Автор'>
+                      <Radio
+                        name="radio"
+                        value="user"
+                        onChange={(e) => setParentState({
+                          groupSelected: false
+                        })}
+                        checked={!state.groupSelected}
+                      >{state.fetchedUser.first_name} {state.fetchedUser.last_name}
+                      </Radio>
+                      <Radio
+                        name="radio"
+                        value="group"
+                        checked={state.groupSelected}
+                        onChange={(e) => setParentState({
+                          groupSelected: e.currentTarget.checked
+                        })}
+                        description="Петиция будет опубликована от имени этого сообщества">
+                        {state.currentGroupInfo.name}
+                      </Radio>
+                      </Group>
+                    }
                        <Input
                            type="text"
                            top={ `Название ${symbols_name}` }
@@ -298,7 +319,7 @@ class AddMeetPage extends Component {
                       { photo &&  <UsersStack onClick={() => connect.send("VKWebAppShowImages", { images: [ photo ] })} photos={[ photo ]}>Обложка загружена</UsersStack>}
                        <Checkbox checked={state.accept} onChange={ (e) => this.props.setParentState({ accept: e.currentTarget.checked }) }>Согласен с
                        <Link target="_blank" href="https://vk.com/@virtualmeetingsclub-pravila-razmescheniya"> правилами</Link></Checkbox>
-                       <Checkbox checked={state.noty} onChange={ (e) => {
+                       <Checkbox disabled={state.noty} checked={state.noty} onChange={ (e) => {
                          if(e.currentTarget.checked){
                             console.log('отправили!')
                             connect.send("VKWebAppAllowMessagesFromGroup", { "group_id": 189366357 });
@@ -349,6 +370,7 @@ class AddMeetPage extends Component {
                            { this.state.disabled ? <Spinner /> : formLang.add }
                        </Button>
                    </FormLayout>
+                   </Group>
                    {snackbar}
             </Panel>
         );
