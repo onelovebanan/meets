@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { Button, IS_PLATFORM_IOS, Link, ActionSheetItem, ActionSheet, Div } from '@vkontakte/vkui/';
+import { Button, IS_PLATFORM_IOS, /*Link,*/ ActionSheetItem, ActionSheet, Div } from '@vkontakte/vkui/';
 
 import Icon28MoreHorizontal from '@vkontakte/icons/dist/28/more_horizontal';
-import Icon28Messages from '@vkontakte/icons/dist/28/messages';
+//import Icon28Messages from '@vkontakte/icons/dist/28/messages';
 import { shortNumber } from '../js/helpers';
 
 class MeetBoxAdmin extends Component {

@@ -36,7 +36,7 @@ class AddMeetPage extends Component {
 
 
   AddMeet = async () => {
-      const { api, setParentState, openDoneSnackbar, openErrorSnackbar, fetchedUser, state } = this.props;
+      const { api, setParentState, openDoneSnackbar, openErrorSnackbar, state } = this.props;
 
       setParentState({ disabled: true });
       const start = `${state.start_date} ${state.start_time}`;

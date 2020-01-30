@@ -297,21 +297,21 @@ class App extends React.Component {
 		const history = () => {
 			let response;
 			switch (activePanel) {
-				case 'meet': {
+				case 'meet':
 					response = ['meets', 'meet'];
-				}	break;
-				case 'succ': {
+					break;
+				case 'succ':
 					 response = ['meets', 'succ'];
-				}	break;
-				case 'comm': {
+					break;
+				case 'comm':
 					response = ['meets', 'comm'];
-				}	break;
-				case 'meetAdmin': {
+					break;
+				case 'meetAdmin':
 					response = ['meets', 'meetAdmin'];
-				}	break;
-				default: {
+					break;
+				default:
 					response = ['meets'];
-				}
+				
 			}
 			return response;
 		}
