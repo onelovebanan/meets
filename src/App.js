@@ -63,7 +63,7 @@ class App extends React.Component {
 			meet: false,
 			noty: false,
 			comments: false,
-			currentMeetId: false,
+	/*		currentMeetId: false,*/
 			userMeets: false,
 			allMeets: false,
 			isCurrentGroupAdmin: false,
@@ -186,7 +186,7 @@ class App extends React.Component {
 		let story = await this.api.getStory(id);
 		story = 'data:image/png;base64,' + story.image.replace(`b'`,'').replace(`'`, '');
 		console.log(story);
-		let url = `https://vk.com/app7217332#${this.state.currentMeetId}`
+		let url = `https://vk.com/app7217332#${id/*this.state.currentMeetId*/}`
 		await connect.send("VKWebAppShowStoryBox", { "background_type" : "image", "locked": true, "blob": story, "attachment": {
 			"text": "go_to",
 			"type": "url",
