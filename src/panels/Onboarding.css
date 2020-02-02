@@ -16,7 +16,7 @@
     text-align: center;
 }
 
-.title {
+.titleL {
   font-weight: bold;
   font-family: Roboto;
   padding: 5vh 0 2vh 0;
@@ -25,12 +25,26 @@
   color: rgb(0, 0, 0);
 }
 
-.subtitle {
+.subtitleL {
   font-family: Roboto;
   font-weight: normal;
   font-size: 15px;
   line-height: 1.2;
   color: rgb(0, 0, 0);
+}
+.titleD {
+  font-weight: bold;
+  font-family: Roboto;
+  padding: 5vh 0 2vh 0;
+  font-size: 25px;
+  line-height: 1.2;
+}
+
+.subtitleD {
+  font-family: Roboto;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 1.2;
 }
  /*{
      --background_page: #fff;

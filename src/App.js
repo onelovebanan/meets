@@ -99,7 +99,6 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-			this.onStoryChange('onboarding', 'onboarding');
 		connect.subscribe(this.sub);
 		connect.send('VKWebAppGetUserInfo', {});
 		connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#0080b4"});
