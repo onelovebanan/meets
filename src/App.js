@@ -332,7 +332,11 @@ class App extends React.Component {
 					break;
 				default:
 					response = ['meets'];
+<<<<<<< HEAD
 
+=======
+				
+>>>>>>> 7b700c1267f1d90fc4ba2dcf850f8d0c77220e2f
 			}
 			return response;
 		}
