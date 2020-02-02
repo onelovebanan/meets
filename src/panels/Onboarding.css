@@ -32,7 +32,7 @@
   line-height: 1.2;
   color: rgb(0, 0, 0);
 }
- *{
+ {
      --background_page: #fff;
 }
 @font-face {
