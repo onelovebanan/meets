@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import { Panel, PanelHeader, Button, FixedLayout, Div } from '@vkontakte/vkui';
+import { Panel, PanelHeader, IS_PLATFORM_IOS, Button, FixedLayout, Div } from '@vkontakte/vkui';
 
 import '@vkontakte/vkui/dist/vkui.css';
-import './Home.css';
+import './Onboarding.css';
 //import img from '../img/list.png'
 class Rules extends Component {
 
 
     render() {
         const { id, onStoryChange } = this.props;
-
+      //  const idc = IS_PLATFORM_IOS ? 'iOS' : 'android'
         return (
             <Panel id={id}>
                 <PanelHeader>Диванные петиции</PanelHeader>

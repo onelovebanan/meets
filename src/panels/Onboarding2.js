@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Panel, PanelHeader, Button, FixedLayout, Div } from '@vkontakte/vkui';
 
 import '@vkontakte/vkui/dist/vkui.css';
-import './Home.css';
+import './Onboarding.css';
 //import img from '../img/list.png'
 class Rules extends Component {
 

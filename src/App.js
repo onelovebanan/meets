@@ -70,7 +70,7 @@ class App extends React.Component {
 			currentGroupInfo: false,
 			groupSelected: false,
 			changedRadio: false,
-			  scheme: false ? 'space_gray' : 'bright_light',
+		  scheme: false ? 'space_gray' : 'bright_light',
 		};
 
 		this.initApp();
@@ -79,12 +79,6 @@ class App extends React.Component {
 	}
 
 		initApp = () => {
-		if (window.location.hash === '#dark') {
-			this.setState({ scheme: 'space_gray' });
-			let schemeAttribute = document.createAttribute('scheme');
-			schemeAttribute.value = 'space_gray';
-			document.body.attributes.setNamedItem(schemeAttribute);
-		}
 
 		window.showOfflinePage = (e) => {
             this.setState({ offline: e });
@@ -105,6 +99,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
+			this.onStoryChange('onboarding', 'onboarding');
 		connect.subscribe(this.sub);
 		connect.send('VKWebAppGetUserInfo', {});
 		connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#0080b4"});
@@ -117,17 +112,22 @@ class App extends React.Component {
 				const schemeAttribute = document.createAttribute('scheme');
 				let schemeK = e.detail.data.scheme;
 				switch (schemeK) {
-					case 'client_light':
-						schemeK = 'bright_light'
+					case 'bright_light':
+						schemeK = 'client_light'
 						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#0080b4"});
 						break;
 					case 'client_dark':
 						schemeK = 'space_gray'
-						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#0080b4"});
+						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#19191a"});
+						break;
+					case 'space_gray':
+						schemeK = 'space_gray'
+						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#19191a"});
 						break;
 					default:
-						schemeK = e.detail.data.scheme
+						schemeK = e.detail.data.scheme;
 				}
+				console.log(schemeK)
 				schemeAttribute.value = schemeK;
 				this.setState({ scheme: schemeK });
 				document.body.attributes.setNamedItem(schemeAttribute);
@@ -332,11 +332,6 @@ class App extends React.Component {
 					break;
 				default:
 					response = ['meets'];
-<<<<<<< HEAD
-
-=======
-				
->>>>>>> 7b700c1267f1d90fc4ba2dcf850f8d0c77220e2f
 			}
 			return response;
 		}
@@ -353,7 +348,7 @@ class App extends React.Component {
 		const views = { onSwipeBack, popout, activePanel };
 
 		return (
-			 <ConfigProvider scheme={this.state.scheme}>
+			 <ConfigProvider isWebView>
 				{
 					offline ?
 						<View id="offline"  popout={ popout } activePanel="offline">

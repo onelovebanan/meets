@@ -3,7 +3,7 @@ import { Panel, PanelHeader, Button, FixedLayout, Div } from '@vkontakte/vkui';
 
 import connect from '@vkontakte/vk-connect';
 import '@vkontakte/vkui/dist/vkui.css';
-import './Home.css';
+import './Onboarding.css';
 class Rules extends Component {
 
 
