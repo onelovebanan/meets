@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { Panel, PanelHeader, Button, FixedLayout, Placeholder } from '@vkontakte/vkui';
+import { Panel, PanelHeader, Button, Placeholder } from '@vkontakte/vkui';
 
 import Icon56CheckCircleOutline from '@vkontakte/icons/dist/56/check_circle_outline';
 
-import connect from '@vkontakte/vk-connect';
+//import connect from '@vkontakte/vk-connect';
 import '@vkontakte/vkui/dist/vkui.css';
 import './Home.css';
 class Success extends Component {

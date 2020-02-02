@@ -69,7 +69,8 @@ class App extends React.Component {
 			isCurrentGroupAdmin: false,
 			currentGroupInfo: false,
 			groupSelected: false,
-			changedRadio: false
+			changedRadio: false,
+			  scheme: false ? 'space_gray' : 'bright_light',
 		};
 
 		this.initApp();
@@ -79,8 +80,9 @@ class App extends React.Component {
 
 		initApp = () => {
 		if (window.location.hash === '#dark') {
+			this.setState({ scheme: 'space_gray' });
 			let schemeAttribute = document.createAttribute('scheme');
-			schemeAttribute.value = 'client_dark';
+			schemeAttribute.value = 'space_gray';
 			document.body.attributes.setNamedItem(schemeAttribute);
 		}
 
@@ -111,6 +113,25 @@ class App extends React.Component {
 	}
 	 sub = e => {
 		switch (e.detail.type) {
+			case 'VKWebAppUpdateConfig':
+				const schemeAttribute = document.createAttribute('scheme');
+				let schemeK = e.detail.data.scheme;
+				switch (schemeK) {
+					case 'client_light':
+						schemeK = 'bright_light'
+						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#0080b4"});
+						break;
+					case 'client_dark':
+						schemeK = 'space_gray'
+						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#0080b4"});
+						break;
+					default:
+						schemeK = e.detail.data.scheme
+				}
+				schemeAttribute.value = schemeK;
+				this.setState({ scheme: schemeK });
+				document.body.attributes.setNamedItem(schemeAttribute);
+				break;
 			case 'VKWebAppGetUserInfoResult':
 				this.setState({ fetchedUser: e.detail.data });
 				let user = this.state.fetchedUser
@@ -297,25 +318,25 @@ class App extends React.Component {
 		const history = () => {
 			let response;
 			switch (activePanel) {
-				case 'meet': {
+				case 'meet':
 					response = ['meets', 'meet'];
-				}	break;
-				case 'succ': {
+					break;
+				case 'succ':
 					 response = ['meets', 'succ'];
-				}	break;
-				case 'comm': {
+					break;
+				case 'comm':
 					response = ['meets', 'comm'];
-				}	break;
-				case 'meetAdmin': {
+					break;
+				case 'meetAdmin':
 					response = ['meets', 'meetAdmin'];
-				}	break;
-				default: {
+					break;
+				default:
 					response = ['meets'];
-				}
+
 			}
 			return response;
 		}
-		console.log(history())
+	//	console.log(history())
 	/*	const history =
 			activePanel === 'meet' ||
 			activePanel === 'comm' || ДОРАБОТАТЬ ПЕРЕРАБОТАТЬ В КОРНЕ
@@ -328,7 +349,7 @@ class App extends React.Component {
 		const views = { onSwipeBack, popout, activePanel };
 
 		return (
-			 <ConfigProvider>
+			 <ConfigProvider scheme={this.state.scheme}>
 				{
 					offline ?
 						<View id="offline"  popout={ popout } activePanel="offline">

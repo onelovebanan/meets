@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, PanelHeader, IS_PLATFORM_IOS, HeaderButton, PullToRefresh } from '@vkontakte/vkui';
+import { Panel, PanelHeader, HeaderButton, PullToRefresh } from '@vkontakte/vkui';
 import { getMessage } from '../js/helpers';
 import MeetList from '../components/MeetList';
 
