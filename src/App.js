@@ -70,7 +70,7 @@ class App extends React.Component {
 			currentGroupInfo: false,
 			groupSelected: false,
 			changedRadio: false,
-		  scheme: false ? 'space_gray' : 'bright_light',
+		  scheme: false ? 'space_gray' : 'client_light',
 		};
 
 		this.initApp();
@@ -112,7 +112,11 @@ class App extends React.Component {
 				let schemeK = e.detail.data.scheme;
 				switch (schemeK) {
 					case 'bright_light':
-						schemeK = 'client_light'
+						if(window.location.hash !== '#l') {
+							schemeK = 'client_light';
+						} else {
+							schemeK = 'bright_light';
+						}
 						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#0080b4"});
 						break;
 					case 'client_dark':
@@ -347,7 +351,7 @@ class App extends React.Component {
 		const views = { onSwipeBack, popout, activePanel };
 
 		return (
-			 <ConfigProvider isWebView>
+			 <ConfigProvider scheme={this.state.scheme} isWebView>
 				{
 					offline ?
 						<View id="offline"  popout={ popout } activePanel="offline">

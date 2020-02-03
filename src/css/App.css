@@ -88,20 +88,6 @@ input, textarea, select {
     font-size: 24px;
     text-align: center;
 }
-.title {
-  font-weight: bold;
-  padding: 5vh 0 2vh 0;
-  font-size: 25px;
-  line-height: 1.2;
-  color: rgb(0, 0, 0);
-}
-
-.subtitle {
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 1.2;
-  color: rgb(0, 0, 0);
-}
 
 .onSelected {
     user-select: auto!important;
@@ -208,7 +194,7 @@ input, textarea, select {
 .MeetBox .MeetAction .MeetMembers {
     flex: 1;
 }
-.onboarding {
+/*.onboarding {
   height: 84vh;
   padding-top: 1vh;
   width: 100%;
@@ -218,7 +204,7 @@ input, textarea, select {
   flex-direction: column;
   text-align: center;
   white-space: pre-line
-}
+}*/
 
 .image {
   width: 30vh;
@@ -230,23 +216,6 @@ input, textarea, select {
 }
 #Avatar {
   min-width: 400;
-}
-
-.title {
-  font-family: "TT Norms";
-  font-weight: bold;
-  padding: 5vh 0 2vh 0;
-  font-size: 25px;
-  line-height: 1.2;
-  color: rgb(0, 0, 0);
-}
-
-.subtitle {
-  font-family: "TT Norms";
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 1.2;
-  color: rgb(0, 0, 0);
 }
 
 
