@@ -13,13 +13,13 @@
     height: 0;
 }
 
-body[scheme='client_light'] * {
+/*body[scheme='client_light'] * {
     --button_primary_background: #0080b4;
     --header_background: #0080b4;
     --header_alternate_background: #0080b4;
     --tabbar_active_icon: #ffffff;
     --tabbar_inactive_icon: #80bfd9;
-}
+}*/
 /*body[scheme='bright_light'], .PanelHeader-content--brand
   { color: #fff } .HeaderButton { color: #fff }
 * {

@@ -7,9 +7,10 @@ import connect from '@vkontakte/vk-connect';
 //import Cropper from 'react-cropper';
 //import 'cropperjs/dist/cropper.css';
 
+
 import '@vkontakte/vkui/dist/vkui.css';
 import './Home.css';
-import { getMessage, dd } from '../js/helpers';
+import { getMessage } from '../js/helpers';
 
 class AddMeetPage extends Component {
   constructor(props) {
@@ -24,16 +25,7 @@ class AddMeetPage extends Component {
 
       this.onChange = this.onChange.bind(this);
       this.AddMeet = this.AddMeet.bind(this);
-  }
-
-  componentDidMount() {
-      const { edit } = this.props;
-
-      if (edit) {
-          this.setState({ ...edit });
-      }
-  }
-
+  };
 
   AddMeet = async () => {
       const { api, setParentState, openDoneSnackbar, openErrorSnackbar, state } = this.props;
@@ -79,31 +71,72 @@ class AddMeetPage extends Component {
         popout: null
       }), 3000)  // понял, что всё таки нужно
   }
-  onChange = (e) => {
-    connect.unsubscribe(this.sub);
-    connect.subscribe(this.sub);
+  onChange = async (e) => {
+    //connect.unsubscribe(this.sub);
+   // connect.subscribe(this.sub);
     const { name, value } = e.currentTarget;
     if(name === 'file'){
-      connect.send("VKWebAppGetAuthToken", {"app_id": 7217332, "scope": "photos"})
+
+        const file = document.getElementById('file').files[0];
+
+        if(!file) {
+            this.setState({ error: true })
+            this.setState({ message: 'Файл не был выбран' })
+            connect.unsubscribe(this.sub);
+            return
+        }
+        if(!(file.type.match('image/*'))){
+            this.setState({ error: true })
+            this.setState({ message: 'Формат выбранного файла не поддерживается.' })
+            connect.unsubscribe(this.sub);
+            return
+        }
+        console.log(file.size)
+        if(file.size > 16777216){
+            this.setState({ error: true })
+            this.setState({ message: 'Размер выбранного файла слишком большой.' })
+            connect.unsubscribe(this.sub);
+            return
+        }
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = (e) => save(e);
+
+
+        const save = e => {
+            if(!e.target.result) return;
+            this.props.setParentState({
+                photo: e.target.result
+            });
+            this.setState({
+                error: false,
+                message: 'Обложка загружена.',
+                disabled: false
+            });
+        }
+
+
     } else {
       this.props.setParentState({ [name]: value });
       if(name === 'name') this.props.setParentState({ symbols_name: `${value.length}/60` })
       if(name === 'description') this.props.setParentState({ symbols_description: `${value.length}/254` })
     }
-  }
+  };
 
 
   sub = (e) => {
     switch (e.detail.type) {
-      case 'VKWebAppAccessTokenReceived':
+    /*  case 'VKWebAppAccessTokenReceived':
       console.log(e.detail.type , e.detail.data)
       if(e.detail.data.scope === 'photos'){
         this.setState({ token: e.detail.data.access_token })
         connect.send("VKWebAppCallAPIMethod", {"method": "photos.getUploadServer", "request_id": "photo_req", "params":
          {"album_id": "267690301",  "group_id": "189366357", "v":"5.103", "access_token": e.detail.data.access_token }});
       }
-        break;
-      case 'VKWebAppCallAPIMethodResult':
+        break;*/
+     /* case 'VKWebAppCallAPIMethodResult':
          if(e.detail.data.request_id === 'photo_req'){
            this.uploadPhoto(e.detail.data.response.upload_url);
          }
@@ -113,47 +146,26 @@ class AddMeetPage extends Component {
              error: false,
              message: 'Обложка загружена.',
              disabled: false
-           })
+           });
 
            this.props.setParentState({ photo: e.detail.data.response[0].sizes[e.detail.data.response[0].sizes.length - 1].url });
            dd('photo', e.detail.data.response[0].sizes.length - 1 , e.detail.data.response[0].sizes[e.detail.data.response[0].sizes.length - 1].url);
          }
          dd('VKWebAppCallAPIMethodResult', e.detail.data);
 
-        break;
-      case 'VKWebAppCallAPIMethodFailed':
-          console.log('VKWebAppCallAPIMethodFailed', e.detail.data);
-        break;
+        break;*/
       default:
         // code
     }
-  }
+  };
 
-  uploadPhoto = async (upload_url) => {
+ /* uploadPhoto = async (upload_url) => {
     const requestUrl = `https://vargasoff.ru/meet.php`;
     const file = document.getElementById('file').files[0];
 //    this.setState({ loading: true })
-    if(!file) {
-      this.setState({ error: true })
-      this.setState({ message: 'Файл не был выбран' })
-      connect.unsubscribe(this.sub);
-      return
-    }
-    if(!(file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg')){
-      this.setState({ error: true })
-      this.setState({ message: 'Формат выбранного файла не поддерживается.' })
-      connect.unsubscribe(this.sub);
-      return
-    }
-    console.log(file.size)
-    if(file.size > 1190000){
-      this.setState({ error: true })
-      this.setState({ message: 'Размер выбранного файла слишком большой.' })
-      connect.unsubscribe(this.sub);
-      return
-    }
 
-    dd('file', file)
+    dd('file', file);
+
     const body = new FormData();
     body.append('file', file);
     body.append('url', upload_url);
@@ -174,7 +186,7 @@ class AddMeetPage extends Component {
     });
 
    });
-  }
+  }*/
     render() {
         const onChange = this.onChange;
         const { id, state, openErrorSnackbar, setParentState } = this.props;
@@ -182,27 +194,11 @@ class AddMeetPage extends Component {
           finish, description, symbols_name, symbols_description, photo, accept } = state;
         const formLang = getMessage('forms');
 
+        console.log(photo)
+
         const backgroundImage = `url(${photo || 'https://sun9-17.userapi.com/c856016/v856016841/191507/A_xwv3xLXfg.jpg'})`;
     //    const cropper = React.createRef(null);
 
-      /*  function dataURLtoFile(dataurl, filename) {
-
-          var arr = dataurl.split(','),
-              mime = arr[0].match(/:(.*?);/)[1],
-              bstr = atob(arr[1]),
-              n = bstr.length,
-              u8arr = new Uint8Array(n);
-
-          while(n--){
-              u8arr[n] = bstr.charCodeAt(n);
-          }
-
-          return new File([u8arr], filename, {type:mime});
-      }
-
-      //Usage example:
-      var file = dataURLtoFile('data:text/plain;base64,aGVsbG8gd29ybGQ=','hello.txt');
-      console.log(file);*/
 
         return (
             <Panel id={id}>
@@ -316,7 +312,7 @@ class AddMeetPage extends Component {
                            onChange={ onChange }
                        />
                       { this.state.error &&  <Div>{this.state.message}</Div>}
-                      { photo &&  <UsersStack onClick={() => connect.send("VKWebAppShowImages", { images: [ photo ] })} photos={[ photo ]}>Обложка загружена</UsersStack>}
+                      { photo &&  <UsersStack onClick={() => connect.send("VKWebAppShowImages", { images: [ `url(${photo})` ] })} photos={[ photo ]}>Обложка загружена</UsersStack>}
                        <Checkbox checked={state.accept} onChange={ (e) => this.props.setParentState({ accept: e.currentTarget.checked }) }>Согласен с
                        <Link target="_blank" href="https://vk.com/@virtualmeetingsclub-pravila-razmescheniya"> правилами</Link></Checkbox>
                        <Checkbox disabled={state.noty} checked={state.noty} onChange={ (e) => {

@@ -70,7 +70,7 @@ class App extends React.Component {
 			currentGroupInfo: false,
 			groupSelected: false,
 			changedRadio: false,
-		  scheme: false ? 'space_gray' : 'client_light',
+		  scheme: false ? 'space_gray' : 'bright_light',
 		};
 
 		this.initApp();
@@ -112,12 +112,12 @@ class App extends React.Component {
 				let schemeK = e.detail.data.scheme;
 				switch (schemeK) {
 					case 'bright_light':
-						if(window.location.hash !== '#l') {
-							schemeK = 'client_light';
-						} else {
-							schemeK = 'bright_light';
-						}
-						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#0080b4"});
+						schemeK = 'bright_light';
+						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#fff"});
+						break;
+					case 'client_light':
+						schemeK = 'bright_light';
+						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#fff"});
 						break;
 					case 'client_dark':
 						schemeK = 'space_gray'
