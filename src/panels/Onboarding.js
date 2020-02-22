@@ -20,7 +20,7 @@ class Rules extends Component {
 Приложение и контент в нем не преследует цели кого-либо оскорбить, является исключительно юмористическим, носит развлекательный контент и тщательно модерируется.</Div>
                 <FixedLayout vertical='bottom'>
                 <Div>
-                <Button size='xl' onClick={() => onStoryChange('onboarding', 'onboarding2')} level="primary">Далее</Button>
+                <Button size='l' stretched onClick={() => onStoryChange('onboarding', 'onboarding2')} level="primary">Далее</Button>
                 </Div>
                 </FixedLayout>
             </Panel>

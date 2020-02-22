@@ -91,7 +91,6 @@ class AddMeetPage extends Component {
             connect.unsubscribe(this.sub);
             return
         }
-        console.log(file.size)
         if(file.size > 16777216){
             this.setState({ error: true })
             this.setState({ message: 'Размер выбранного файла слишком большой.' })
@@ -194,9 +193,7 @@ class AddMeetPage extends Component {
           finish, description, symbols_name, symbols_description, photo, accept } = state;
         const formLang = getMessage('forms');
 
-        console.log(photo)
-
-        const backgroundImage = `url(${photo || 'https://sun9-17.userapi.com/c856016/v856016841/191507/A_xwv3xLXfg.jpg'})`;
+        const backgroundImage = `url(${photo || 'https://img.tyt.by/n/03/8/glazirovannyy_syrok_1.jpg'})`;
     //    const cropper = React.createRef(null);
 
 

@@ -8,10 +8,10 @@ import './css/App.css';
 import API from './js/api';
 import { checkVersionAndroid, showAlert } from './js/helpers';
 
-import Icon24List from '@vkontakte/icons/dist/24/list';
-import Icon24FavoriteOutline from '@vkontakte/icons/dist/24/favorite_outline';
-import Icon24Privacy from '@vkontakte/icons/dist/24/privacy';
-import Icon24Add from '@vkontakte/icons/dist/24/add';
+import Icon28HomeOutline from '@vkontakte/icons/dist/28/home_outline';
+import Icon28ArticleOutline from '@vkontakte/icons/dist/28/article_outline';
+import Icon28KeyOutline from '@vkontakte/icons/dist/28/key_outline';
+import Icon28AddCircleOutline from '@vkontakte/icons/dist/28/add_circle_outline';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 import Icon16Clear from '@vkontakte/icons/dist/16/clear';
 
@@ -39,8 +39,8 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			activeStory: 'home',
-			activePanel: 'meets',
+			activeStory: 'home', /// home
+			activePanel: 'meets', // meets
 			activeTab: 'all',
 			snackbar: null,
 			fetchedUser: {
@@ -54,8 +54,8 @@ class App extends React.Component {
 			symbols_description: '',
 			accept: false,
 			name: '',
-			start_date: false, //0000-00-00
-			finish_date: false, // 0000-00-00
+			start: false, //0000-00-00
+			finish: false, // 0000-00-00
 			start_time: '00:00:00',
 			finish_time: '00:00:00',
 			description: '',
@@ -113,11 +113,11 @@ class App extends React.Component {
 				switch (schemeK) {
 					case 'bright_light':
 						schemeK = 'bright_light';
-						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#fff"});
+						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "dark", "action_bar_color": "#fff"});
 						break;
 					case 'client_light':
 						schemeK = 'bright_light';
-						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#fff"});
+						connect.send("VKWebAppSetViewSettings", {"status_bar_style": "dark", "action_bar_color": "#fff"});
 						break;
 					case 'client_dark':
 						schemeK = 'space_gray'
@@ -130,7 +130,6 @@ class App extends React.Component {
 					default:
 						schemeK = e.detail.data.scheme;
 				}
-				console.log(schemeK)
 				schemeAttribute.value = schemeK;
 				this.setState({ scheme: schemeK });
 				document.body.attributes.setNamedItem(schemeAttribute);
@@ -142,10 +141,10 @@ class App extends React.Component {
 				break;
 				case 'VKWebAppAllowMessagesFromGroupResult':
 					this.setState({ noty: e.detail.data.result });
-					console.log(this.state)
+				//	console.log(this.state)
 				break;
 				case 'VKWebAppAddToCommunityResult':
-				console.log(e.detail.data.group_id);
+			//	console.log(e.detail.data.group_id);
 				this.setState({
 					activePanel: 'succ'
 				});
@@ -188,7 +187,7 @@ class App extends React.Component {
 
 	checkRoute = async e => {
 		let route = window.location.hash.replace('#', '');
-		console.log(route);
+	//	console.log(route);
 		if (route > 0) {
 				const meet = await this.api.GetMeet(route);
 				console.log(meet[0]);
@@ -221,30 +220,31 @@ class App extends React.Component {
 	openDoneSnackbar = e => {
 		this.setState({
 			snackbar: <Snackbar
-										duration={2000}
-										layout="vertical"
-										onClose={() => this.setState({ snackbar: null })}
-										before={<Avatar size={24} style={{ backgroundColor: '#4bb34b' }}><Icon16Done fill="#fff" width={14} height={14} /></Avatar>}
-								>
-									{e}
-								</Snackbar>
+							duration={2000}
+							layout="vertical"
+							onClose={() => this.setState({ snackbar: null })}
+							before={<Avatar size={24} style={{ backgroundColor: '#4bb34b' }}><Icon16Done fill="#fff" width={14} height={14} /></Avatar>}
+						>
+							{e}
+						</Snackbar>
 		});
 	}
 	openErrorSnackbar = e => {
 		this.setState({
-			snackbar: <Snackbar
-										duration={2000}
-										layout="vertical"
-										onClose={() => this.setState({ snackbar: null })}
-										before={<Avatar size={24} style={{backgroundColor: '#FF0000'}}><Icon16Clear fill="#fff" width={14} height={14} /></Avatar>}
-										>
-										{e}
-								</Snackbar>
+			snackbar:
+				<Snackbar
+					duration={2000}
+					layout="vertical"
+					onClose={() => this.setState({ snackbar: null })}
+					before={<Avatar size={24} style={{backgroundColor: '#FF0000'}}><Icon16Clear fill="#fff" width={14} height={14} /></Avatar>}
+				>
+					{e}
+				</Snackbar>
 		});
 	}
 
 	getMeets = async () => { // доступные митинги
-			window.showLoader(true);
+			if(!this.state.meets) window.showLoader(true);
 			this.setState({ meets: false });
 			const meets = await this.api.GetMeets();
 			this.setState({ meets });
@@ -265,16 +265,15 @@ class App extends React.Component {
 			window.showLoader(false);
 	}
 	getUserMeets = async () => { // митинги, в которых учавствует юзер
+			if(!this.state.userMeets) window.showLoader(true);
 			this.setState({ userMeets: false });
-			window.showLoader(true);
 			const userMeets = await this.api.GetUserMeets(this.state.fetchedUser.id);
 			this.setState({ userMeets });
 			window.showLoader(false);
 	}
 	getAllMeets = async () => { // админка
-			window.showLoader(true);
+			if(!this.state.allMeets) window.showLoader(true);
 			const allMeets = await this.api.GetAllMeets(this.state.fetchedUser.id);
-
 			this.setState({ allMeets });
 			window.showLoader(false);
 	}
@@ -350,8 +349,10 @@ class App extends React.Component {
 
 		const views = { onSwipeBack, popout, activePanel };
 
+		const scheme = this.state.scheme;
+		const className = scheme === 'bright_light' ? 'white' : 'dark';
 		return (
-			 <ConfigProvider scheme={this.state.scheme} isWebView>
+			 <ConfigProvider scheme={scheme} isWebView>
 				{
 					offline ?
 						<View id="offline"  popout={ popout } activePanel="offline">
@@ -369,22 +370,22 @@ class App extends React.Component {
 							<TabbarItem
 								onClick={ () => this.onStoryChange('home', 'meets') }
 								selected={ activeStory === 'home' }
-							><Icon24List /></TabbarItem>
+							><Icon28HomeOutline /></TabbarItem>
 							<TabbarItem
 								onClick={ () => this.onStoryChange('addMeet', 'addMeetPage') }
 								selected={ activeStory === 'addMeet' }
-							><Icon24Add /></TabbarItem>
+							><Icon28AddCircleOutline /></TabbarItem>
 							{ isUserAdmin && <TabbarItem
 									onClick={ () => this.onStoryChange('admin', 'meets') }
 									selected={ activeStory === 'admin' }
-								><Icon24Privacy /></TabbarItem>}
+								><Icon28KeyOutline /></TabbarItem>}
 								<TabbarItem
 									onClick={ () => this.onStoryChange('favorites', 'meets') }
 									selected={ activeStory === 'favorites' }
-								><Icon24FavoriteOutline /></TabbarItem>
+								><Icon28ArticleOutline /></TabbarItem>
 							</Tabbar>
 						}>
-							<View id="home"	history={history()} { ...views } >
+							<View className={className} id="home"	history={history()} { ...views } >
 								<Home id="meets" { ...props } />
 								<CommIntegration id="comm" { ...props } />
 								<AddGroupSuccess id='succ' { ...props } />
@@ -393,15 +394,15 @@ class App extends React.Component {
 							<View id="addMeet" { ...views } >
 								<AddMeetPage id="addMeetPage" { ...props } />
 							</View>
-							<View id="admin" history={history()}  { ...views } >
+							<View className={className} id="admin" history={history()}  { ...views } >
 								<AdminPage id="meets" { ...props } />
 								<MeetAdmin id='meetAdmin' { ...props } />
 							</View>
-							<View	id="favorites" history={history()}  { ...views } >
+							<View className={className} id="favorites" history={history()}  { ...views } >
 								<Favorite id="meets" { ...props } />
 								<Meet id="meet" { ...props }/>
 							</View>
-							<View id="onboarding" { ...views } >
+							<View className={className} id="onboarding" activePanel={activePanel} >
 								<Onboarding id="onboarding" { ...props }/>
 								<Onboarding2 id="onboarding2" { ...props }/>
 								<Onboarding3 id="onboarding3" { ...props }/>

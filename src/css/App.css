@@ -13,6 +13,14 @@
     height: 0;
 }
 
+.white {
+    --background_page: #fff;
+}
+
+.dark {
+    --background_page: #19191A;
+}
+
 /*body[scheme='client_light'] * {
     --button_primary_background: #0080b4;
     --header_background: #0080b4;

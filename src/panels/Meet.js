@@ -173,7 +173,7 @@ class Meet extends Component {
                     </>
                   }
                 </Group>
-              { !meet.isexpired && meet.approved &&  <ComList {...this.props}/>}
+              { /*!meet.isexpired &&*/ meet.approved &&  <ComList isExpired={meet.isexpired} {...this.props}/>}
                   {this.props.state.snackbar}
             </Panel>
         );

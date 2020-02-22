@@ -18,8 +18,21 @@ class Rules extends Component {
                 <Div style={{ textAlign: 'justify' }} className='subtitle'>
                 На первой вкладке находится список петиций, на второй — раздел для организации собственной, и на третьей — те, в которых вы принимаете участие. </Div>
                 <FixedLayout vertical='bottom'>
-                <Div>
-                <Button size='xl' onClick={() => onStoryChange('onboarding', 'onboarding3')} level="primary">Далее</Button>
+                <Div style={{ display: 'flex' }}>
+                    <Button
+                        size='x'
+
+                        onClick={() => onStoryChange('onboarding', 'onboarding')}
+                        level="secondary"
+                        stretched
+                    >Назад</Button>
+                    <Button
+                        style={{ marginLeft: 10 }}
+                        size='l'
+                        onClick={() => onStoryChange('onboarding', 'onboarding3')}
+                        level="primary"
+                        stretched
+                    >Далее</Button>
                 </Div>
                 </FixedLayout>
             </Panel>

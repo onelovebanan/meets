@@ -159,27 +159,30 @@ class ComList extends Component {
                             <Div style={{ textAlign: 'center' }}>{ getMessage('comm_empty_list') }</Div>
                         </Group>
                 }
-                <Group>
-                <Div>
-                <Textarea
-                  maxLength='45'
-                  style={{ borderRadius: '15px' }}
-                  placeholder={'Напишите комментарий'}
-                  id='comm_inp'
-                  value={this.state.comment_text}
-                  onChange={ e =>  this.setState({ comment_text: e.currentTarget.value }) }
-                 />
-                <Button
-                  disabled={!this.state.comment_text || this.state.loading}
-                  size='xl'
-                  style={{ marginTop: 15,  borderRadius: '60px' }}
-                  onClick={ () => {
-                  if(this.state.comment_text){
-                    addComment(this.state.comment_text);
-                  }
-                }}>Отправить комментарий</Button>
-                </Div>
-                </Group>
+                {
+                    !this.props.isExpired &&
+                    <Group>
+                        <Div>
+                            <Textarea
+                                maxLength='45'
+                                style={{ borderRadius: '15px' }}
+                                placeholder={'Напишите комментарий'}
+                                id='comm_inp'
+                                value={this.state.comment_text}
+                                onChange={ e =>  this.setState({ comment_text: e.currentTarget.value }) }
+                            />
+                            <Button
+                                disabled={!this.state.comment_text || this.state.loading}
+                                size='xl'
+                                style={{ marginTop: 15,  borderRadius: '60px' }}
+                                onClick={ () => {
+                                    if(this.state.comment_text){
+                                        addComment(this.state.comment_text);
+                                    }
+                                }}>Отправить комментарий</Button>
+                        </Div>
+                    </Group>
+                }
             </>
         )
     }

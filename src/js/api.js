@@ -96,24 +96,28 @@ export default class API {
     async GetMeets() {
         const meets = await this.send('GET', `GetMeets`, null);
 
-        dd('API: ', 'GetMeets', meets);
-
         if(!meets.failed) {
+            meets.forEach(e =>
+                e.photo = e.photo.replace(`b'`, '').replace(`'`, '')
+           );
           return meets.reverse();
         } else return [];
     }
     async GetMeet(meetId) {
         const meet = await this.send('GET', `GetMeet?meet=${meetId}`, null);
 
-        dd('API: ', 'GetMeet', meet);
+        dd('API: ', 'GetMeet', meet.replace(`b'`, '').replace(`'`, ''));
 
-          return meet;
+          return meet.replace(`b'`, '').replace(`'`, '');
     }
     async GetAllMeets() {
         const allMeets = await this.send('GET', `admin/GetAllMeets`, null);
         dd('API: ', 'GetAllMeets', allMeets);
 
         if(!allMeets.failed) {
+            allMeets.forEach(e =>
+                e.photo =  e.photo.replace(`b'`, '').replace(`'`, '')
+            );
           return allMeets.reverse();
         } else return [];
 
@@ -123,6 +127,9 @@ export default class API {
         dd('API: ', 'GetExpiredUserMeets', expireduserMeets);
 
         if(!expireduserMeets.failed) {
+            expireduserMeets.forEach(e =>
+                e.photo =  e.photo.replace(`b'`, '').replace(`'`, '')
+          );
           return expireduserMeets.reverse();
         } else return [];
 
@@ -132,6 +139,9 @@ export default class API {
         dd('API: ', 'GetOwneredMeets', ownereduserMeets);
 
         if(!ownereduserMeets.failed) {
+            ownereduserMeets.forEach(e =>
+                e.photo =  e.photo.replace(`b'`, '').replace(`'`, '')
+            );
           return ownereduserMeets.reverse();
         } else return [];
 
@@ -148,6 +158,9 @@ export default class API {
         dd('API: ', 'GetUserMeets', userMeets);
 
         if(!userMeets.failed) {
+            userMeets.forEach(e =>
+                e.photo =  e.photo.replace(`b'`, '').replace(`'`, '')
+            );
           return userMeets.reverse();
         } else return [];
 
