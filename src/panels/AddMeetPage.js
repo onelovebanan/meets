@@ -277,7 +277,7 @@ class AddMeetPage extends Component {
                        <Input
                            type="date"
                            top={ formLang.start }
-                           name="start_date"
+                           name="start"
                            value={ start }
                            onChange={ onChange }
                        />
@@ -289,7 +289,7 @@ class AddMeetPage extends Component {
                        <Input
                            type="date"
                            top={ formLang.finish }
-                           name="finish_date"
+                           name="finish"
                            value={ finish }
                            onChange={ onChange }
                        />
